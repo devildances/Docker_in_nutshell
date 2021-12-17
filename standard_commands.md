@@ -1,0 +1,49 @@
+# DOCKER BASIC COMMANDS
+
+- ```docker version```
+    - get the version of our Docker client and server
+- ```docker run <image name>```
+    - <img src="/files/images/img1.png" height="35%" width="35%" />
+    - create and run a container from an image in our local if exists or download it from Docker Hub
+    - `docker run` = `docker create` + `docker start`
+        - ```docker create <image name>```
+            - <img src="/files/images/img3.png" height="35%" width="35%" />
+            - this command is used to create a container out of an image
+        - ```docker start -a <container id>```
+            - <img src="/files/images/img4.png" height="35%" width="35%" />
+            - and then this command is used to actually start an image
+            - `-a` in the command means make Docker actually watch the output from the container and print it out to our terminal
+- ```docker ps```
+    - <img src="/files/images/img2.png" height="35%" width="35%" />
+    - return all the different running containers that are currently on our machine and it contains some information regarding the container
+        - *CONTAINER ID* : this is an unique ID and each of containers will have different CONTAINER ID
+        - *IMAGE* : the image that is used for the container
+        - *COMMAND* : command that currently running
+        - *CREATED* : infomation about how long ago that it was created
+        - *STATUS* : information regarding it's been up for how long
+        - *PORTS* : listing of any ports that have been opened for outside access
+        - *NAMES* : randomly generated name to identify each container
+    - ```docker ps --all```
+        - this command will return a listing of all the containers that we have ever created and then stopped or exited from our Docker server
+        - just because a container stop doesn't mean that it's like dead or can't be used again because we can easily stop and start containers again at some point in the future by using the ```docker start <container id>``` command by using the *CONTAINER ID* of the container that we want to start again
+    - ```docker system prune```
+        - this command is used to clear out all the stopped containers and not just leave them in stop state on our machine
+        - it's not only going to delete stopped containers but also delete networks, images and all build cache
+- ```docker logs <container id>```
+    - <img src="/files/images/img5.png" height="35%" width="35%" />
+    - this command is used look at a container and retrieve all the information that has been emitted from it
+    - it's can be very useful if we forget to add additional command in our *start* command to watch the output from the container rather than start again the process
+- there are 2 ways to stop a container that running on the background
+    - ```docker stop <container id>```
+        - this command issues a *SIGTERM* signal
+        - it's used any time that we want to stop a process inside our container then shut the container down and we want to give that process inside there a little bit of time to shut itself down and do a little bit of clean up or maybe save some files, emit some messages or etc
+    - ```docker kill <container id>```
+        - this command issues a *SIGKILL* signal
+        - it means we want the container has to shut down right now and it doesn't get to do any additional work
+    - ideally we always stop a container in order to give the running process inside of it a little bit of time to shut itself down, otherwise if it feels like the container has locked up and it's not responding to the stop command then we can issue kill command instead
+- ```docker exec -it <container id> <command>```
+    - <img src="/files/images/img6.png" height="35%" width="35%" />
+    - this command is very useful to execute an additional command in a running container
+    - the purpose of `-it` sub-command is to allow us to attach our ternal to the STDIN channel of the running process in the specific container
+    - for example, we run a container from a redis image and want to execute `redis-cli` command but this can't be done in the output terminal when we run it so we need *exec* command (`docker exec -it 093b6e redis-cli`) to interact directly to the container and execute `redis-cli` command in order to allow us running redis command inside of it
+    - this command also very useful if we want to access the terminal of our running container (such as ubuntu, redis, alpine, etc) by running this `docker exec -it <container id> [ bash | powershell | zsh | sh ]` command and hit command+D (in Mac) to exit the terminal
