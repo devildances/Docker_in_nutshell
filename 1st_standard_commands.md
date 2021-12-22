@@ -47,3 +47,6 @@
     - the purpose of `-it` sub-command is to allow us to attach our ternal to the STDIN channel of the running process in the specific container
     - for example, we run a container from a redis image and want to execute `redis-cli` command but this can't be done in the output terminal when we run it so we need *exec* command (`docker exec -it 093b6e redis-cli`) to interact directly to the container and execute `redis-cli` command in order to allow us running redis command inside of it
     - this command also very useful if we want to access the terminal of our running container (such as ubuntu, redis, alpine, etc) by running this `docker exec -it <container id> [ bash | powershell | zsh | sh ]` command and hit command+D (in Mac) to exit the terminal
+    - **Start a shell inside the running container using** `docker exec -t <container ID> sh` **command instead of running** `docker run -it <image id> sh` **command again**
+        - run `docker ps` to get the container ID
+        - run `docker exec -t <container ID> sh` command
