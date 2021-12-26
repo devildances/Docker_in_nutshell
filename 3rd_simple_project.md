@@ -10,7 +10,7 @@ These are a quick outline of some of the steps that we're going to go through :
 <img src="/files/images/img14.png" height="40%" width="40%" />
 
 
-This project is contained in *simpleweb* folder.
+> This project is contained in *simpleweb* folder.
 
 - Create Node JS web app
     - Create *package.json* file
